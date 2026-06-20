@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Doctors - AppointEase{% endblock %}
+{% block content %}
+<h2 class="mb-4">Available Doctors</h2>
+<div class="row g-4">
+    {% for doctor in doctors %}
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Dr. {{ doctor.name }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ doctor.specialization }}</h6>
+                <p class="card-text">
+                    <strong>Available:</strong> {{ doctor.available_days }}<br>
+                    <strong>Timings:</strong> {{ doctor.start_time }} - {{ doctor.end_time }}<br>
+                    <strong>Fee:</strong> ₹{{ doctor.fee }}
+                </p>
+                <a href="{% url 'book_appointment' doctor.id %}" class="btn btn-primary w-100">Book Appointment</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-muted">No doctors added yet. Please add doctors from the admin panel (/admin/).</p>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}My Appointments - AppointEase{% endblock %}
+{% block content %}
+<h2 class="mb-4">My Appointments</h2>
+<div class="table-responsive">
+<table class="table table-bordered bg-white">
+    <thead class="table-primary">
+        <tr>
+            <th>Doctor</th>
+            <th>Specialization</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for appt in appointments %}
+        <tr>
+            <td>Dr. {{ appt.doctor.name }}</td>
+            <td>{{ appt.doctor.specialization }}</td>
+            <td>{{ appt.date }}</td>
+            <td>{{ appt.time }}</td>
+            <td>
+                <span class="badge
+                    {% if appt.status == 'CONFIRMED' %}bg-success
+                    {% elif appt.status == 'PENDING' %}bg-warning text-dark
+                    {% elif appt.status == 'CANCELLED' %}bg-secondary
+                    {% else %}bg-info{% endif %}">
+                    {{ appt.get_status_display }}
+                </span>
+            </td>
+            <td>
+                {% if appt.status == 'PENDING' or appt.status == 'CONFIRMED' %}
+                <a href="{% url 'cancel_appointment' appt.id %}" class="btn btn-sm btn-outline-danger"
+                   onclick="return confirm('Cancel this appointment?');">Cancel</a>
+                {% else %}
+                -
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6" class="text-center text-muted">No appointments booked yet.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

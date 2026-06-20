@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Home - AppointEase{% endblock %}
+{% block content %}
+<div class="p-5 mb-4 bg-white rounded-3 shadow-sm text-center">
+    <h1 class="display-5 fw-bold">Book Doctor Appointments Online</h1>
+    <p class="col-md-8 mx-auto fs-5 text-muted">
+        Skip the queue. Choose a doctor, pick a convenient time slot, and confirm your appointment in seconds.
+    </p>
+    <p class="text-muted">Currently {{ doctor_count }} doctors available.</p>
+    <a href="{% url 'doctor_list' %}" class="btn btn-primary btn-lg mt-2">View Doctors &amp; Book Now</a>
+</div>
+{% endblock %}
